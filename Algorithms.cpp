@@ -1,28 +1,30 @@
 #include "Algorithms.hpp"
 
-
-
-namespace ariel{
-    class Algorithms
-    {
-    public:
-        static int isConnected(Graph g){
-        return 0;
-        }   
-        static string shortestPath(Graph g,int start,int end){
-
+namespace ariel {
+    namespace Algorithms {
+        int Algorithm::isConnected(Graph g) {
+            // Implementation goes here
+            return 0; // Placeholder return value
         }
-        static int isContainsCycle(Graph g){
 
+        std::string Algorithm::shortestPath(Graph g, int start, int end) {
+            // Implementation goes here
+            return ""; // Placeholder return value
         }
-        static string isBipartite(Graph g){
-            return 0;
-        }
-        static string negativeCycle(Graph g){
 
+        int Algorithm::isContainsCycle(Graph g) {
+            // Implementation goes here
+            return 0; // Placeholder return value
         }
-    };
-   
 
-    
+        string Algorithm::isBipartite(Graph g) {
+            // Implementation goes here
+            return ""; // Placeholder return value
+        }
+
+        std::string Algorithm::negativeCycle(Graph g) {
+            // Implementation goes here
+            return ""; // Placeholder return value
+        }
+    }
 }
