@@ -1,13 +1,14 @@
 #include "Algorithms.hpp"
 
+using namespace std;
+
 namespace ariel {
     namespace Algorithms {
         int Algorithm::isConnected(Graph g) {
-            // Implementation goes here
-            return 0; // Placeholder return value
+
         }
 
-        std::string Algorithm::shortestPath(Graph g, int start, int end) {
+        string Algorithm::shortestPath(Graph g, int start, int end) {
             // Implementation goes here
             return ""; // Placeholder return value
         }
@@ -22,7 +23,7 @@ namespace ariel {
             return ""; // Placeholder return value
         }
 
-        std::string Algorithm::negativeCycle(Graph g) {
+        string Algorithm::negativeCycle(Graph g) {
             // Implementation goes here
             return ""; // Placeholder return value
         }
