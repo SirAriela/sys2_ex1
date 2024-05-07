@@ -1,29 +1,65 @@
 #include "Graph.hpp"
 #include <iostream>
-#include <vector>
+
 
 #include "Graph.hpp"
 
+
 namespace ariel {
-
-    // Constructor definition
+    enum Answer {ZERO,ONE};
+    //contrauctor
     Graph::Graph() {
-        // Initialize any member variables if needed
+        
     }
-
-    // Implement other member functions here...
-
+    
     void Graph::loadGraph(vector<vector<int>> graph){
         this->g = graph;
+        this->size = graph.size();
+        int directed = isDirected();
+        setDirected(directed);
     }
 
     void Graph::printGraph(){
-        for (const auto& row : this->g) {
-            for (int num : row) {
-                std::cout << num << " ";
+        for (unsigned int i = 0; i < size; i++) {
+            for (unsigned int j = 0; j < size; j++) {
+                std::cout << this->g[i][j] << " ";
             }
             std::cout << std::endl;
         }
     }
+    void Graph::setDirected(int change)
+    {
+        this->is_directed = change;
+
+    }
+
+    int Graph::isDirected(){
+         for (unsigned int i = 0; i < size; i++) {
+            for (unsigned int j = 0; j < size; j++) {
+                if(this->g[i][j] != this->g[j][i])
+                return ZERO;
+            }
+         }
+            return ONE;
+    }
+
+    int Graph::getDirected(){
+        return this->is_directed;
+    }
+
+    void Graph::setConnected(int change){
+        this->is_connected = change;
+    }
+    int Graph::getConnected(){
+        return this->is_connected;
+    }
+    
+     void Graph::setSize(int change){
+        this->size = change;
+    }
+    int Graph::getSize(){
+        return this->size;
+    }
+
 
 }
