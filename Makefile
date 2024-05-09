@@ -1,11 +1,11 @@
 #!make -f
 
 CXX=clang++
-CXXFLAGS=-std=c++11 -Werror -Wsign-conversion
+CXXFLAGS=-std=c++11 -Werror -Wsign-conversion -pedantic
 VALGRIND_FLAGS=-v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
+LDLIBS = -pthread
 
-SOURCES=Graph.cpp Algorithms.cpp TestCounter.cpp Test.cpp my_test.cpp Demo.cpp
-SOURCES_MY_TEST =my_test.cpp
+SOURCES=Graph.cpp Algorithms.cpp my_test.cpp
 OBJECTS=$(subst .cpp,.o,$(SOURCES))
 
 #run: demo
@@ -17,8 +17,8 @@ OBJECTS=$(subst .cpp,.o,$(SOURCES))
 #test: TestCounter.o Test.o $(OBJECTS)
 #	$(CXX) $(CXXFLAGS) $^ -o test
 
-my_test: my_test.o Graph.o 
-	$(CXX) $(CXXFLAGS) $^ -o my_test
+my_test: my_test.o Graph.o Algorithms.o $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o my_test
 
 tidy:
 	clang-tidy $(SOURCES) -checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-owning-memory --warnings-as-errors=-* --

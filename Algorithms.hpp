@@ -32,4 +32,4 @@ namespace ariel
                 static string negativeCycle(Graph g);
         };
     }
-} // namespace ariel
+}

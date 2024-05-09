@@ -51,7 +51,7 @@ TEST_CASE("Test isContainsCycle")
         {1, 0, 1},
         {0, 1, 0}};
     g.loadGraph(graph);
-    CHECK(ariel::Algorithms::Algorithm::isContainsCycle(g) == 0);
+    CHECK(ariel::Algorithms::Algorithm::isContainsCycle(g) == "0");
 
     vector<vector<int>> graph2 = {
         {0, 1, 1, 0, 0},
@@ -60,7 +60,7 @@ TEST_CASE("Test isContainsCycle")
         {0, 0, 1, 0, 0},
         {0, 0, 0, 0, 0}};
     g.loadGraph(graph2);
-    CHECK(ariel::Algorithms::Algorithm::isContainsCycle(g) == 1);
+    CHECK(ariel::Algorithms::Algorithm::isContainsCycle(g) == "1");
 }
 TEST_CASE("Test isBipartite")
 {

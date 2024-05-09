@@ -1,7 +1,7 @@
 #include "Graph.hpp"
+#include <cstddef>
 #include <iostream>
-
-
+#include <ostream>
 #include "Graph.hpp"
 
 
@@ -10,6 +10,9 @@ namespace ariel {
     //contrauctor
     Graph::Graph() {
         
+    }
+    size_t Graph::getData(unsigned int i,unsigned int j){
+        return (unsigned)this->g[i][j];
     }
     
     void Graph::loadGraph(vector<vector<int>> graph){
@@ -55,9 +58,9 @@ namespace ariel {
     }
     
      void Graph::setSize(int change){
-        this->size = change;
+        this->size =(unsigned)change;
     }
-    int Graph::getSize(){
+    size_t Graph::getSize(){
         return this->size;
     }
 

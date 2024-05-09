@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <vector>
 using namespace std;
 
@@ -8,7 +9,7 @@ namespace ariel{
         vector<vector<int>> g; // the graph
         int is_connected; // 1 - is connected, 0 - otherwise
         int is_directed; // 1 - is directed, 0 - otherwise
-        int size; // the size of vector
+        size_t size; // the size of vector
     public:
         // Constructor
         Graph();
@@ -21,16 +22,19 @@ namespace ariel{
 
         //if directed return 1, otherwise 0
         int isDirected();
-
+ 
         // getters and setters for contributes
         void setDirected(int change);
         int getDirected();
+
+        //returns the weight of an edge, if there is none returns ZERO
+        size_t getData(unsigned i,unsigned j);
 
         void setConnected(int change);
         int getConnected();
 
         void setSize(int change);
-        int getSize();
+        size_t getSize();
 
     };
 }

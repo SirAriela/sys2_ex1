@@ -1,33 +1,47 @@
-#include "Graph.hpp"
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest.h"
 #include "Algorithms.hpp"
-
+#include "Graph.hpp"
 #include <vector>
 
-int main(){
-    ariel::Graph g;
-    vector<vector<int>> graph = {
-        {0, 1, 0},
-        {1, 0, 1},
-        {0, 1, 0}};
-    g.loadGraph(graph); // Load the graph to the object.
+using namespace std;
+using namespace ariel::Algorithms;
 
-    g.printGraph();   
-     vector<vector<int>> graph2 = {
-        {0, 1, 1, 0, 0},
-        {1, 0, 1, 0, 0},
-        {1, 1, 0, 1, 0},
-        {0, 0, 1, 0, 0},
-        {0, 0, 0, 0, 0}};
 
-    g.loadGraph(graph2); // Load the graph to the object.
+TEST_CASE("Test isConnected")
+{
+  ariel::Graph g;
+   vector<vector<int>> graph1 = {
+      {0, 1, 0, 1, 1, 0},
+      {1, 0, 0, 0, 0, 1}, 
+      {0, 0, 0, 1, 0, 0},
+      {1, 0, 1, 0, 0, 0}, 
+      {1, 0, 0, 0, 0, 0}, 
+      {0, 1, 0, 0, 0, 0},
 
-    g.printGraph();  
-     vector<vector<int>> graph3 = {
-        {0, 1, 2, 0, 0},
-        {1, 0, 3, 0, 0},
-        {2, 3, 0, 4, 0},
-        {0, 0, 4, 0, 5},
-        {0, 0, 0, 5, 0}};
-    g.loadGraph(graph3);         
-    g.printGraph(); 
+  };
+  g.loadGraph(graph1);
+
+  CHECK(Algorithm::isConnected(g) == true);
+
+  vector<vector<int>> graph2 = {
+      {0, 0, 0, 0, 0, 3},
+      {0, 0, 0, 0, 3, 0},
+      {0, 5, 0, 1, 0, 0},
+      {0, 0, 0, 0, 0, 1},
+      {7, 0, 5, 0, 0, 0},
+      {0, 0, 0, 0, 1, 0},
+  };
+  g.loadGraph(graph2);
+  CHECK(Algorithm::isConnected(g) == true);
+
+  vector<vector<int>> graph3={
+    {0, 0, 0, 0, 0}, 
+    {0, 0, 0, 0, 3}, 
+    {0, 5, 0, 1, 0}, 
+    {0, 0, 0, 0, 0}, 
+    {7, 0, 5, 0, 0},
+    };
+  g.loadGraph(graph3);
+  CHECK(Algorithm::isConnected(g) == false);
 }

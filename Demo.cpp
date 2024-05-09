@@ -10,6 +10,7 @@
 #include <stdexcept>
 #include <vector>
 using namespace std;
+using namespace ariel::Algorithms;
 
 int main()
 {
@@ -22,7 +23,7 @@ int main()
     g.loadGraph(graph); // Load the graph to the object.
 
     g.printGraph();                                    // Should print: "Graph with 3 vertices and 4 edges."
-    cout << ariel::Algorithms::Algorithm::isConnected(g) << endl;        // Should print: "1" (true).
+    cout << Algorithm::isConnected(g) << endl;        // Should print: "1" (true).
     cout << ariel::Algorithms::Algorithm::shortestPath(g, 0, 2) << endl; // Should print: 0->1->2.
     cout << ariel::Algorithms::Algorithm::isContainsCycle(g) << endl;    // Should print: "0" (false).
     cout << ariel::Algorithms::Algorithm::isBipartite(g) << endl;        // Should print: "The graph is bipartite: A={0, 2}, B={1}."

@@ -61,5 +61,12 @@
     "vector": "cpp",
     "stdexcept": "cpp",
     "string": "cpp"
-  }
+  },
+  "makefile.launchConfigurations": [
+    {
+      "cwd": "/home/ariela/Desktop/git/sys2_ex1",
+      "binaryPath": "/home/ariela/Desktop/git/sys2_ex1/my_test",
+      "binaryArgs": []
+    }
+  ]
 }
