@@ -17,7 +17,7 @@ OBJECTS=$(subst .cpp,.o,$(SOURCES))
 #test: TestCounter.o Test.o $(OBJECTS)
 #	$(CXX) $(CXXFLAGS) $^ -o test
 
-my_test: my_test.o Graph.o Algorithms.o $(OBJECTS)
+my_test:Graph.o Algorithms.o my_test.o $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o my_test
 
 tidy:

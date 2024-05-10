@@ -3,8 +3,8 @@
 #include <cmath>
 #include <cstddef>
 #include <queue>
+#include <string>
 #include <vector>
-
 
 using namespace std;
 enum Answer { ZERO, ONE };
@@ -45,7 +45,7 @@ vector<bool> Algorithm::BFS(Graph g, int start_index) {
 
   return visited;
 }
-//using BFS checking if a graph is connected or not
+// using BFS checking if a graph is connected or not
 int Algorithm::isConnected(Graph g) {
   for (int i = 0; i < g.getSize(); i++) {
     vector<bool> checkIfAllVisited = BFS(g, i);
@@ -57,15 +57,11 @@ int Algorithm::isConnected(Graph g) {
   return ONE;
 }
 
-
-string Algorithm::shortestPath(Graph g, int start, int end) {
-
-  return "";
-}
+string Algorithm::shortestPath(Graph g, int start, int end) { return ""; }
 
 string Algorithm::isContainsCycle(Graph g) {
-  // Implementation goes here
-  return 0; // Placeholder return value
+  
+  return 0; 
 }
 
 string Algorithm::isBipartite(Graph g) {
@@ -74,8 +70,49 @@ string Algorithm::isBipartite(Graph g) {
 }
 
 string Algorithm::negativeCycle(Graph g) {
-  
-  return ""; 
+  size_t sizeOfGraph = g.getSize();
+  vector<bool> visited(sizeOfGraph, false);
+  vector<int> distance(sizeOfGraph, INFINITY);
+  distance[ZERO] = ZERO;
+  string negetiveCycle = " ";
+  size_t n = sizeOfGraph - 1;
+
+//size - 1 times 
+  for (size_t i = 0; i < n; i++) {
+    //for all vertexes
+    for (size_t curretnt = 0; curretnt < sizeOfGraph; curretnt++) {
+      //check neighbor for each neighbor
+      for (size_t j = 0; j < sizeOfGraph; j++) {
+        if(curretnt != j){
+          int weight = g.getData(curretnt, j);
+          int distanceStart = distance[curretnt];
+          int distanceNext = distance[j];
+
+          //relax
+          if ((weight + distanceStart < distanceNext) && weight != 0)  {
+            distance[j] = weight + distanceStart;
+          
+          }
+        }
+      }
+    }
+  }
+
+
+  for (size_t curretnt = 0; curretnt < sizeOfGraph; curretnt++) {
+    for (size_t j = 0; j < sizeOfGraph; j++) {
+      int wieght = g.getData(curretnt, j);
+      int distanceCurrent = distance[curretnt];
+      int wieghtToNewVertex = distance[j];
+      if ((wieght + distanceCurrent < wieghtToNewVertex) && wieght != 0 && curretnt != j) {
+         return "there is a negetive cycle";
+      }
+      
+    }
+    
+  }
+  return "there is no negetive cycle";
 }
-} // namespace Algorithms
-} // namespace ariel
+
+}
+}

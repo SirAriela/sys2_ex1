@@ -29,7 +29,7 @@ int main()
     cout << ariel::Algorithms::Algorithm::isBipartite(g) << endl;        // Should print: "The graph is bipartite: A={0, 2}, B={1}."
 
     // 5x5 matrix that represents a non-connected graph with a cycle.
-    vector<vector<int>> graph2 = {
+    vector<vector<int>> graph2 = {#include <iostream>
         {0, 1, 1, 0, 0},
         {1, 0, 1, 0, 0},
         {1, 1, 0, 1, 0},
