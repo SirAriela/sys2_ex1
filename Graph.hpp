@@ -10,6 +10,7 @@ namespace ariel{
         int is_connected; // 1 - is connected, 0 - otherwise
         int is_directed; // 1 - is directed, 0 - otherwise
         size_t size; // the size of vector
+        int edges; // number of edges in the graph
     public:
         // Constructor
         Graph();
@@ -28,7 +29,7 @@ namespace ariel{
         int getDirected();
 
         //returns the weight of an edge, if there is none returns ZERO
-        size_t getData(unsigned i,unsigned j);
+        int getData(size_t i,size_t j);
 
         void setConnected(int change);
         int getConnected();

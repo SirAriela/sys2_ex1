@@ -11,8 +11,8 @@ namespace ariel {
     Graph::Graph() {
         
     }
-    size_t Graph::getData(unsigned int i,unsigned int j){
-        return (unsigned)this->g[i][j];
+    int Graph::getData(size_t i,size_t j){
+        return this->g[i][j];
     }
     
     void Graph::loadGraph(vector<vector<int>> graph){

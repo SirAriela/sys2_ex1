@@ -24,12 +24,12 @@ int main()
 
     g.printGraph();                                    // Should print: "Graph with 3 vertices and 4 edges."
     cout << Algorithm::isConnected(g) << endl;        // Should print: "1" (true).
-    cout << ariel::Algorithms::Algorithm::shortestPath(g, 0, 2) << endl; // Should print: 0->1->2.
-    cout << ariel::Algorithms::Algorithm::isContainsCycle(g) << endl;    // Should print: "0" (false).
-    cout << ariel::Algorithms::Algorithm::isBipartite(g) << endl;        // Should print: "The graph is bipartite: A={0, 2}, B={1}."
+    cout << Algorithm::shortestPath(g, 0, 2) << endl; // Should print: 0->1->2.
+    cout << Algorithm::isContainsCycle(g) << endl;    // Should print: "0" (false).
+    cout << Algorithm::isBipartite(g) << endl;        // Should print: "The graph is bipartite: A={0, 2}, B={1}."
 
     // 5x5 matrix that represents a non-connected graph with a cycle.
-    vector<vector<int>> graph2 = {#include <iostream>
+    vector<vector<int>> graph2 = {
         {0, 1, 1, 0, 0},
         {1, 0, 1, 0, 0},
         {1, 1, 0, 1, 0},
@@ -39,10 +39,10 @@ int main()
     g.loadGraph(graph2); // Load the graph to the object.
 
     g.printGraph();                                    // Should print: "Graph with 5 vertices and 8 edges."
-    cout << ariel::Algorithms::Algorithm::isConnected(g) << endl;        // Should print: "0" (false).
-    cout << ariel::Algorithms::Algorithm::shortestPath(g, 0, 4) << endl; // Should print: "-1" (there is no path between 0 and 4).
-    cout << ariel::Algorithms::Algorithm::isContainsCycle(g) << endl;    // Should print: "The cycle is: 0->1->2->0".
-    cout << ariel::Algorithms::Algorithm::isBipartite(g) << endl;        // Should print: "0" (false).
+    cout << Algorithm::isConnected(g) << endl;        // Should print: "0" (false).
+    cout << Algorithm::shortestPath(g, 0, 4) << endl; // Should print: "-1" (there is no path between 0 and 4).
+    cout << Algorithm::isContainsCycle(g) << endl;    // Should print: "The cycle is: 0->1->2->0".
+    cout << Algorithm::isBipartite(g) << endl;        // Should print: "0" (false).
 
     // 5x5 matrix that reprsents a connected weighted graph.
     vector<vector<int>> graph3 = {
