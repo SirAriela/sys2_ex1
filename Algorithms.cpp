@@ -1,6 +1,5 @@
 #include "Algorithms.hpp"
 #include "Graph.hpp"
-#include <algorithm>
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
@@ -8,9 +7,10 @@
 #include <queue>
 #include <string>
 #include <vector>
+#include <iostream>
 
 using namespace std;
-enum Answer { ZERO, ONE, TWO };
+enum Answer { ZERO, ONE };
 const size_t negetive = static_cast<size_t>(-1);
 
 namespace ariel {
@@ -61,58 +61,53 @@ int Algorithm::isConnected(Graph &g) {
   return ONE;
 }
 
-string Algorithm::shortestPath(Graph &g, int start, int end) {
+string Algorithm::shortestPath(Graph &g, size_t start, size_t end) {
+  // Check for negative cycle
   if (Algorithm::negativeCycle(g).compare("there is a negetive cycle") == 0) {
     return "no shortest path";
   } else {
     size_t size = g.getSize();
-    vector<int> distance(size, INFINITY);
-    vector<int> pre(size, -1); // Initialize pre with -1
+    vector<int> distance(
+        size, MAX_INPUT); // Initialize distances with maximum input value
+    vector<int> predecessor(size, -1); // Initialize predecessor array with -1
 
-    distance[static_cast<size_t>(start)] = 0;
-    pre[static_cast<size_t>(start)] = start;
-
+    distance[start] = 0;        // Distance to start vertex is 0
+    predecessor[start] = start; // Predecessor of start vertex is itself
+    string path ="";
     size_t n = size - 1;
 
+    // size - 1 times
     for (size_t i = 0; i < n; i++) {
-      // For all vertices
-      for (size_t current = 0; current < size; current++) {
-        // Check neighbors for each neighbor
+      // for all vertexes
+      for (size_t curretnt = 0; curretnt < size; curretnt++) {
+        // check neighbor for each neighbor
         for (size_t j = 0; j < size; j++) {
-          if (current != j &&
-              g.getData(current, j) != 0) { // Check for edge existence
-            int weight = g.getData(current, j);
-            int distanceStart = distance[current];
+          if (curretnt != j) {
+            int weight = g.getData(curretnt, j);
+            int distanceStart = distance[curretnt];
             int distanceNext = distance[j];
 
-            // Relaxation step
-            if (weight != 0 && distanceStart != INFINITY &&
-                weight + distanceStart < distanceNext) {
+            // relax
+            if ((weight + distanceStart < distanceNext) && weight != 0) {
               distance[j] = weight + distanceStart;
-              pre[j] = current; // Update predecessor of vertex 'j'
+              predecessor[j] = curretnt;
             }
           }
         }
       }
     }
-
-    if (distance[static_cast<size_t>(end)] != INFINITY) {
-      vector<int> path;
-      int current = end;
-      while (current != -1) {
-        path.push_back(current);
-        current = pre[static_cast<size_t>(current)];
+    if(distance[end] < MAX_INPUT){
+      std::cout<<distance[end]<< std::endl;
+      path += to_string(end) + "<-";
+      while(predecessor[end] != start){
+        path += to_string(predecessor[end]) + "<-";
+        end = (size_t)predecessor[end];
       }
-      reverse(path.begin(), path.end());
-
-      string shortestPath = to_string(path[0]);
-      for (size_t i = 1; i < path.size(); i++) {
-        shortestPath += " -> " + to_string(path[i]);
-      }
-      return shortestPath;
-    } else {
-      return "no path";
+      path += to_string(start);
+      return path;
     }
+    return "no path";
+
   }
 }
 
@@ -239,19 +234,18 @@ string Algorithm::isBipartite(Graph &g) {
           }
         }
       }
-      
     }
   }
   haluka += "A = {";
   for (size_t i = 0; i < size; i++) {
-    if(color[i]){
-      haluka += to_string(i) +", ";
+    if (color[i]) {
+      haluka += to_string(i) + ", ";
     }
   }
   haluka += "} B = {";
   for (size_t i = 0; i < size; i++) {
-    if(!color[i]){
-      haluka += to_string(i) +", ";
+    if (!color[i]) {
+      haluka += to_string(i) + ", ";
     }
   }
   haluka += "}";

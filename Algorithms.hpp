@@ -22,7 +22,7 @@ namespace ariel
 
                 //finds shortest path from one vertex to another
                 //will use BF and/or dijikstra to find it
-                static std::string shortestPath(Graph &g, int start, int end);
+                static std::string shortestPath(Graph &g, size_t start, size_t end);
 
                 //finds if there is a cycle in a graph
                 //returns the cycle otherwise 0

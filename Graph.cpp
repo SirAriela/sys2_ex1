@@ -2,6 +2,7 @@
 #include <cstddef>
 #include <iostream>
 #include <ostream>
+#include <string>
 #include "Graph.hpp"
 
 
@@ -23,12 +24,27 @@ namespace ariel {
     }
 
     void Graph::printGraph(){
-        for (unsigned int i = 0; i < size; i++) {
-            for (unsigned int j = 0; j < size; j++) {
-                std::cout << this->g[i][j] << " ";
+       string print="";
+       int count =0;
+       print+= "Graph with " + to_string(this->size) + " vertixes and ";
+       
+       for(size_t i =0;i<size;i++){
+        for(size_t j =0 ;j<size; j++){
+            if(getData(i, j) != 0){
+                count++;
             }
-            std::cout << std::endl;
         }
+       }
+        if(is_directed){
+            print+= to_string(count) + " edges";
+        }
+        else print+= to_string(count/2) + " edges";
+
+        
+        cout << print << endl;
+        
+       
+
     }
     void Graph::setDirected(int change)
     {
