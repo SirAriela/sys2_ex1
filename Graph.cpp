@@ -28,7 +28,7 @@ namespace ariel {
 
     void Graph::printGraph(){
        string print="";
-       int count =0;
+       int count = 0;
        print+= "Graph with " + to_string(this->size) + " vertixes and ";
        
        for(size_t i =0;i<size;i++){
@@ -41,7 +41,7 @@ namespace ariel {
         if(is_directed){
             print+= to_string(count) + " edges";
         }
-        else print+= to_string(count/2) + " edges";
+        else print += to_string(count/2) + " edges";
 
         
         cout << print << endl;
@@ -59,10 +59,10 @@ namespace ariel {
          for (unsigned int i = 0; i < size; i++) {
             for (unsigned int j = 0; j < size; j++) {
                 if(this->g[i][j] != this->g[j][i])
-                return ZERO;
+                return ONE;
             }
          }
-            return ONE;
+            return ZERO;
     }
 
     int Graph::getDirected(){

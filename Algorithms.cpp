@@ -7,9 +7,10 @@
 #include <cstdint>
 #include <linux/limits.h>
 #include <queue>
+#include <stack>
 #include <string>
 #include <vector>
-#include <iostream>
+
 
 using namespace std;
 enum Answer { ZERO, ONE };
@@ -99,13 +100,23 @@ string Algorithm::shortestPath(Graph &g, size_t start, size_t end) {
       }
     }
     if(distance[end] < MAX_INPUT){
-      std::cout<<distance[end]<< std::endl;
-      path += to_string(end) + "<-";
+      stack<int> s;
+      s.push(end);
       while(predecessor[end] != start){
-        path += to_string(predecessor[end]) + "<-";
+        s.push(predecessor[end]);
+
         end = (size_t)predecessor[end];
       }
-      path += to_string(start);
+
+      s.push(start);
+      path += to_string(s.top());
+      s.pop();
+
+      while(!s.empty()){
+        path += "->" + to_string(s.top());
+        s.pop();
+      }
+
       return path;
     }
     return "no path";
@@ -196,11 +207,6 @@ string Algorithm::isContainsCycle(Graph &g) {
 }
 
 string Algorithm::isBipartite(Graph &g) {
-
-  if (Algorithm::negativeCycle(g).compare("there is a negetive cycle") == 0) {
-    return "there is a negetive cycle";
-  }
-
   size_t size = g.getSize();
   vector<bool> visited(size, false);
   vector<int> color(size, -1);
@@ -223,19 +229,18 @@ string Algorithm::isBipartite(Graph &g) {
       q.pop();
 
       for (size_t v = 0; v < size; ++v) {
-        if (g.getData(current, v) !=
-            0) {             // If there's an edge between current and v
+        if (g.getData(current, v) != 0) 
+        {             
           if (!visited[v]) { // If v is not visited
             visited[v] = true;
             color[v] = !color[current]; // Assign opposite color to v
             q.push(v);
-            currentColor = !currentColor;
-          } else if (color[v] ==
-                     color[current]) { // If v has the same color as current
+          } else if (color[v] == color[current]) { // If v has the same color as current
             return "is not bipartite"; // Violation of bipartite property
           }
         }
       }
+  
     }
   }
   haluka += "A = {";
