@@ -1,16 +1,18 @@
-//206862666
-//ariela
+// 206862666
+// ariela
 #include "Algorithms.hpp"
 #include "Graph.hpp"
+#include <climits>
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+
+#include <iostream>
 #include <linux/limits.h>
 #include <queue>
 #include <stack>
 #include <string>
 #include <vector>
-
 
 using namespace std;
 enum Answer { ZERO, ONE };
@@ -70,13 +72,14 @@ string Algorithm::shortestPath(Graph &g, size_t start, size_t end) {
     return "no shortest path";
   } else {
     size_t size = g.getSize();
+
     vector<int> distance(
         size, MAX_INPUT); // Initialize distances with maximum input value
     vector<int> predecessor(size, -1); // Initialize predecessor array with -1
 
     distance[start] = 0;        // Distance to start vertex is 0
     predecessor[start] = start; // Predecessor of start vertex is itself
-    string path ="";
+    string path = "";
     size_t n = size - 1;
 
     // size - 1 times
@@ -91,18 +94,21 @@ string Algorithm::shortestPath(Graph &g, size_t start, size_t end) {
             int distanceNext = distance[j];
 
             // relax
-            if ((weight + distanceStart < distanceNext) && weight != 0) {
+            if ((weight + distanceStart < distanceNext) && weight != 0 &&
+                distanceStart != MAX_INPUT) {
               distance[j] = weight + distanceStart;
-              predecessor[j] = curretnt;
+              if (predecessor[curretnt] != j)
+                predecessor[j] = curretnt;
             }
           }
         }
       }
     }
-    if(distance[end] < MAX_INPUT){
+
+    if (distance[end] < MAX_INPUT) {
       stack<int> s;
       s.push(end);
-      while(predecessor[end] != start){
+      while (predecessor[end] != start) {
         s.push(predecessor[end]);
 
         end = (size_t)predecessor[end];
@@ -112,15 +118,16 @@ string Algorithm::shortestPath(Graph &g, size_t start, size_t end) {
       path += to_string(s.top());
       s.pop();
 
-      while(!s.empty()){
-        path += "->" + to_string(s.top());
+      int x;
+      while (!s.empty()) {
+        x = s.top();
+        path += "->" + to_string(x);
         s.pop();
       }
 
       return path;
     }
     return "no path";
-
   }
 }
 
@@ -229,18 +236,17 @@ string Algorithm::isBipartite(Graph &g) {
       q.pop();
 
       for (size_t v = 0; v < size; ++v) {
-        if (g.getData(current, v) != 0) 
-        {             
+        if (g.getData(current, v) != 0) {
           if (!visited[v]) { // If v is not visited
             visited[v] = true;
             color[v] = !color[current]; // Assign opposite color to v
             q.push(v);
-          } else if (color[v] == color[current]) { // If v has the same color as current
+          } else if (color[v] ==
+                     color[current]) { // If v has the same color as current
             return "is not bipartite"; // Violation of bipartite property
           }
         }
       }
-  
     }
   }
   haluka += "A = {";
@@ -262,14 +268,28 @@ string Algorithm::isBipartite(Graph &g) {
 
 string Algorithm::negativeCycle(Graph &g) {
   size_t sizeOfGraph = g.getSize();
-  vector<bool> visited(sizeOfGraph, false);
-  vector<int> distance(sizeOfGraph, INFINITY);
+  vector<int> distance(sizeOfGraph, INT_MAX);
   distance[ZERO] = ZERO;
   string negetiveCycle = " ";
   size_t n = sizeOfGraph - 1;
 
+  if (!g.isDirected()) {
+    int count = 0;
+    for (size_t i = 0; i < sizeOfGraph; i++) {
+      // for all vertexes
+      for (size_t curretnt = 0; curretnt < sizeOfGraph; curretnt++) {
+        count += g.getData(i, curretnt);
+      }
+    }
+    if (count < 0) {
+      return "there is a negetive cycle";
+    }
+
+    return "there is no negetive cycle";
+  }
+
   // size - 1 times
-  for (size_t i = 0; i < n; i++) {
+  for (size_t i = 0; i < sizeOfGraph; i++) {
     // for all vertexes
     for (size_t curretnt = 0; curretnt < sizeOfGraph; curretnt++) {
       // check neighbor for each neighbor
@@ -280,7 +300,8 @@ string Algorithm::negativeCycle(Graph &g) {
           int distanceNext = distance[j];
 
           // relax
-          if ((weight + distanceStart < distanceNext) && weight != 0) {
+          if ((weight + distanceStart < distanceNext) && weight != 0 &&
+              distance[curretnt] != INT_MAX) {
             distance[j] = weight + distanceStart;
           }
         }
@@ -301,5 +322,6 @@ string Algorithm::negativeCycle(Graph &g) {
   }
   return "there is no negetive cycle";
 }
+
 } // namespace Algorithms
 } // namespace ariel
